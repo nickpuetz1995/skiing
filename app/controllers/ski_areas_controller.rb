@@ -1,11 +1,12 @@
 class SkiAreasController < ApplicationController
-  before_action :set_ski_area, only: [:show, :edit, :update, :destroy]
+  before_action :set_ski_area, only: %i[show edit update destroy]
 
   # GET /ski_areas
   def index
     @q = SkiArea.ransack(params[:q])
-    @ski_areas = @q.result(:distinct => true).includes(:ski_check_ins, :ski_area_reviews, :non_ski_activities).page(params[:page]).per(10)
-    @location_hash = Gmaps4rails.build_markers(@ski_areas.where.not(:address_latitude => nil)) do |ski_area, marker|
+    @ski_areas = @q.result(distinct: true).includes(:ski_check_ins,
+                                                    :ski_area_reviews, :non_ski_activities).page(params[:page]).per(10)
+    @location_hash = Gmaps4rails.build_markers(@ski_areas.where.not(address_latitude: nil)) do |ski_area, marker|
       marker.lat ski_area.address_latitude
       marker.lng ski_area.address_longitude
       marker.infowindow "<h5><a href='/ski_areas/#{ski_area.id}'>#{ski_area.name}</a></h5><small>#{ski_area.address_formatted_address}</small>"
@@ -25,15 +26,14 @@ class SkiAreasController < ApplicationController
   end
 
   # GET /ski_areas/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /ski_areas
   def create
     @ski_area = SkiArea.new(ski_area_params)
 
     if @ski_area.save
-      redirect_to @ski_area, notice: 'Ski area was successfully created.'
+      redirect_to @ski_area, notice: "Ski area was successfully created."
     else
       render :new
     end
@@ -42,7 +42,7 @@ class SkiAreasController < ApplicationController
   # PATCH/PUT /ski_areas/1
   def update
     if @ski_area.update(ski_area_params)
-      redirect_to @ski_area, notice: 'Ski area was successfully updated.'
+      redirect_to @ski_area, notice: "Ski area was successfully updated."
     else
       render :edit
     end
@@ -51,17 +51,19 @@ class SkiAreasController < ApplicationController
   # DELETE /ski_areas/1
   def destroy
     @ski_area.destroy
-    redirect_to ski_areas_url, notice: 'Ski area was successfully destroyed.'
+    redirect_to ski_areas_url, notice: "Ski area was successfully destroyed."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ski_area
-      @ski_area = SkiArea.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def ski_area_params
-      params.require(:ski_area).permit(:name, :address, :forecast, :snow_last_night)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ski_area
+    @ski_area = SkiArea.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def ski_area_params
+    params.require(:ski_area).permit(:name, :address, :forecast,
+                                     :snow_last_night)
+  end
 end

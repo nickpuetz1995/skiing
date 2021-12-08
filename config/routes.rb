@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  scope path: ApplicationResource.endpoint_namespace, defaults: { format: :jsonapi } do
-    scope module: 'api/v1', as: 'api' do
+  scope path: ApplicationResource.endpoint_namespace,
+        defaults: { format: :jsonapi } do
+    scope module: "api/v1", as: "api" do
       resources :non_ski_reviews
 
       resources :non_ski_activities
@@ -14,14 +15,13 @@ Rails.application.routes.draw do
       resources :ski_areas
 
       resources :users
-
     end
-    mount VandalUi::Engine, at: '/vandal'
+    mount VandalUi::Engine, at: "/vandal"
     # your routes go here
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root :to => "ski_areas#index"
+  root to: "ski_areas#index"
   resources :non_ski_reviews
   resources :non_ski_activities
   resources :ski_area_reviews

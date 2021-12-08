@@ -1,10 +1,10 @@
-require 'open-uri'
+require "open-uri"
 class SkiArea < ApplicationRecord
   before_validation :geocode_address
 
   def geocode_address
-    if self.address.present?
-      url = "https://maps.googleapis.com/maps/api/geocode/json?key=#{ENV['GMAP_API_KEY']}&address=#{URI.encode(self.address)}"
+    if address.present?
+      url = "https://maps.googleapis.com/maps/api/geocode/json?key=#{ENV['GMAP_API_KEY']}&address=#{URI.encode(address)}"
 
       raw_data = open(url).read
 
@@ -22,14 +22,14 @@ class SkiArea < ApplicationRecord
   # Direct associations
 
   has_many   :non_ski_activities,
-             :foreign_key => "tagged_ski_area_id",
-             :dependent => :destroy
+             foreign_key: "tagged_ski_area_id",
+             dependent: :destroy
 
   has_many   :ski_area_reviews,
-             :dependent => :destroy
+             dependent: :destroy
 
   has_many   :ski_check_ins,
-             :dependent => :destroy
+             dependent: :destroy
 
   # Indirect associations
 
@@ -40,5 +40,4 @@ class SkiArea < ApplicationRecord
   def to_s
     name
   end
-
 end
