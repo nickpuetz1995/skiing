@@ -12,6 +12,8 @@ RSpec.describe SkiAreaReview, type: :model do
 
     describe "InDirect Associations" do
 
+    it { should have_one(:friend_invites_sent) }
+
     end
 
     describe "Validations" do

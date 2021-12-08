@@ -7,6 +7,10 @@ class SkiAreaReview < ApplicationRecord
 
   # Indirect associations
 
+  has_one    :friend_invites_sent,
+             :through => :user,
+             :source => :friend_invites_sent
+
   # Validations
 
   # Scopes
