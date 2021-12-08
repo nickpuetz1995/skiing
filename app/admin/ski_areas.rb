@@ -1,5 +1,5 @@
 ActiveAdmin.register SkiArea do
-  permit_params :name, :address, :forecast, :snow_last_night
+  permit_params :name, :forecast, :snow_last_night
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
