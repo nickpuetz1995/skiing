@@ -1,5 +1,7 @@
 ActiveAdmin.register NonSkiActivity do
 
+ permit_params :description, :address, :tagged_ski_area_id, :title
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
