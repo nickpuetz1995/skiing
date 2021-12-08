@@ -59,7 +59,7 @@ class NonSkiActivitiesController < ApplicationController
   end
 
   def non_ski_activity_params
-    params.require(:non_ski_activity).permit(:description, :address,
+    params.require(:non_ski_activity).permit(:description,
                                              :tagged_ski_area_id, :title)
   end
 end
