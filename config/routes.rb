@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :friends
   resources :ski_areas
   devise_for :users
   resources :users
