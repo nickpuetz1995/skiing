@@ -8,6 +8,8 @@ class UserResource < ApplicationResource
 
   # Direct associations
 
+  has_many   :ski_area_reviews
+
   has_many   :ski_check_ins
 
   has_many   :friend_requests,
