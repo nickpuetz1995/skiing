@@ -3,7 +3,8 @@ class SkiAreasController < ApplicationController
 
   # GET /ski_areas
   def index
-    @ski_areas = SkiArea.page(params[:page]).per(10)
+    @q = SkiArea.ransack(params[:q])
+    @ski_areas = @q.result(:distinct => true).includes(:ski_check_ins, :ski_area_reviews, :non_ski_activities).page(params[:page]).per(10)
     @location_hash = Gmaps4rails.build_markers(@ski_areas.where.not(:address_latitude => nil)) do |ski_area, marker|
       marker.lat ski_area.address_latitude
       marker.lng ski_area.address_longitude
