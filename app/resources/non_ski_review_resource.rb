@@ -15,4 +15,6 @@ class NonSkiReviewResource < ApplicationResource
 
   # Indirect associations
 
+  has_one    :friend_invites_sent,
+             resource: FriendResource
 end
