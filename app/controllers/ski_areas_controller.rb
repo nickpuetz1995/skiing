@@ -4,6 +4,11 @@ class SkiAreasController < ApplicationController
   # GET /ski_areas
   def index
     @ski_areas = SkiArea.all
+    @location_hash = Gmaps4rails.build_markers(@ski_areas.where.not(:address_latitude => nil)) do |ski_area, marker|
+      marker.lat ski_area.address_latitude
+      marker.lng ski_area.address_longitude
+      marker.infowindow "<h5><a href='/ski_areas/#{ski_area.id}'>#{ski_area.name}</a></h5><small>#{ski_area.address_formatted_address}</small>"
+    end
   end
 
   # GET /ski_areas/1

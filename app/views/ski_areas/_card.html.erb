@@ -12,7 +12,11 @@
 
       <dt>Address</dt>
       <!-- Display address start -->
-      <dd><%= ski_area.address %></dd>
+      <dd>
+        <div>
+          <%= render partial: "ski_areas/one_photo_map" %>
+        </div>
+      </dd>
       <!-- Display address end -->
 
       <dt>Forecast</dt>
